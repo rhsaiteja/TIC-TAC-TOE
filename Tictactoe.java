@@ -37,6 +37,7 @@ class Tictactoe extends JFrame implements KeyListener
 				l.setText("x's turn");
 				d.setVisible(true);
 				d.setSize(200,200);
+				s.setText("");
 				return;
 			}
 			if(turn%2==1 && s.getText().equals("x"))
@@ -45,6 +46,7 @@ class Tictactoe extends JFrame implements KeyListener
 				l.setText("o's turn");
 				d.setVisible(true);
 				d.setSize(200,200);
+				s.setText("");
 				return;
 			}
 			turn++;
@@ -53,6 +55,13 @@ class Tictactoe extends JFrame implements KeyListener
 			a[s.i][s.j]=s.getText().equals("o")?-1:1; //enters -1 for 'o' and 1 for 'x'
 			update();
 			checkWon();
+		}
+		else
+		{
+			l.setText("only o and x are allowed");
+			d.setVisible(true);
+			d.setSize(200,200);
+			return;
 		}
 	}
 	void update() //to update all the sums
@@ -72,7 +81,22 @@ class Tictactoe extends JFrame implements KeyListener
 		while(i<8 && sums[i]!=3 && sums[i]!=-3)
 			i++;
 		if(i==8)
+		{
+			for(int r=0;r<3;r++)
+			{
+				for(int c=0;c<3;c++)
+				{
+					if(a[r][c] == 0)
+					{
+						return;
+					}
+				}
+			}
+			l.setText("Draw between the players");
+			d.setVisible(true);
+			d.setSize(200,200);
 			return;
+		}
 		if(sums[i]==3) //3=>three (1)s / three 'x's
 		{
 			l.setText("x won");
